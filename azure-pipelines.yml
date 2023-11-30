@@ -1,0 +1,19 @@
+---
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    curl -u $(ASSERTIBLE_API_TOKEN_2): 'https://assertible.com/tests' > tests.json
+    curl -XPOST -u $(ASSERTIBLE_API_TOKEN_1): https://assertible.com/apis/$(ASSERTIBLE_API_PROJECT)/run -d'{
+      "wait": true
+    }' > results.json
+    ls -la
+    
+  displayName: 'Run Assertible Tests'
