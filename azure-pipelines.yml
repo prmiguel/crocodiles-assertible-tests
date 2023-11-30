@@ -30,3 +30,4 @@ steps:
     testResultsFiles: 'test-report.xml'
     failTaskOnFailedTests: true
     failTaskOnMissingResultsFile: true
+    testRunTitle: 'Assertible Tests'
