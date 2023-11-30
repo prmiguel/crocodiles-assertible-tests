@@ -14,7 +14,6 @@ steps:
     curl -XPOST -u $(ASSERTIBLE_API_TOKEN_1): https://assertible.com/apis/$(ASSERTIBLE_API_PROJECT)/run -d'{
       "wait": true
     }' > results.json
-    ls -la
   displayName: 'Run Assertible Tests'
 - script: |
     git clone https://github.com/prmiguel/assertible-to-junit.git
@@ -24,6 +23,11 @@ steps:
     npm run add
     cd ..
     assertible-to-junit "$(cat results.json)" "$(cat tests.json)"
-    ls -la
-    cat test-report.xml
   displayName: Generate Junit Report
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'test-report.xml'
+    failTaskOnFailedTests: true
+    failTaskOnMissingResultsFile: true
+    testRunTitle: 'Assertible Tests'
