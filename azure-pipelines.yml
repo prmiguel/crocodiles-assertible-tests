@@ -15,5 +15,13 @@ steps:
       "wait": true
     }' > results.json
     ls -la
-    
   displayName: 'Run Assertible Tests'
+- script: |
+    git clone https://github.com/prmiguel/assertible-to-junit.git
+    cd assertible-to-junit
+    npm i
+    npm run build
+    npm run add
+    cd ..
+    assertible-to-junit "$(cat results.json)" "$(cat tests.json)"
+  displayName: Generate Junit Report
