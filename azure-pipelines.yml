@@ -24,4 +24,6 @@ steps:
     npm run add
     cd ..
     assertible-to-junit "$(cat results.json)" "$(cat tests.json)"
+    ls -la
+    cat test-report.xml
   displayName: Generate Junit Report
