@@ -16,12 +16,7 @@ steps:
     }' > results.json
   displayName: 'Run Assertible Tests'
 - script: |
-    git clone https://github.com/prmiguel/assertible-to-junit.git
-    cd assertible-to-junit
-    npm i
-    npm run build
-    npm run add
-    cd ..
+    npm i -g assertible-to-junit
     assertible-to-junit "$(cat results.json)" "$(cat tests.json)"
   displayName: Generate Junit Report
 - task: PublishTestResults@2
